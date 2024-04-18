@@ -79,9 +79,4 @@ export class ProductsController {
     if (!modifiedProduct)
       throw new HttpException(`Product with Id "${id}" not found`, 404);
   }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return '';
-  }
 }

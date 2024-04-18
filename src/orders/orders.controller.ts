@@ -38,10 +38,6 @@ export class OrdersController {
     return await this.ordersService.highestTotalOrder();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.ordersService.findOne(+id);
-  }
   @Patch(':id')
   async update(
     @Param('id') id: string,
@@ -62,10 +58,5 @@ export class OrdersController {
       throw new HttpException(e.message, 500);
     }
     return modifiedOrder;
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.ordersService.remove(+id);
   }
 }

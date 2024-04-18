@@ -32,16 +32,13 @@ export class OrdersService {
   }
 
   async totalSoldLastMonth() {
-    // Get the current date
     const currentDate = new Date();
-    // Calculate the start date of the previous month
     const startDate = new Date(
       currentDate.getFullYear(),
       currentDate.getMonth() - 1,
       1,
     );
 
-    // Calculate the end date of the previous month
     const endDate = new Date(
       currentDate.getFullYear(),
       currentDate.getMonth(),
@@ -62,9 +59,5 @@ export class OrdersService {
       { $sort: { total: -1 } },
       { $limit: 1 },
     ]);
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} order`;
   }
 }
