@@ -5,12 +5,10 @@ import {
   Body,
   Patch,
   Param,
-  Delete,
   HttpException,
   UseInterceptors,
   UploadedFile,
   ParseFilePipe,
-  MaxFileSizeValidator,
   FileTypeValidator,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';

@@ -5,7 +5,6 @@ import {
   Body,
   Patch,
   Param,
-  Delete,
   HttpException,
   ConflictException,
 } from '@nestjs/common';
