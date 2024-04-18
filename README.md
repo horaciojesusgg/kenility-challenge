@@ -32,6 +32,9 @@
 $ npm install
 ```
 
+## Configuration
+ Rename the .env.example file to .env and replace the variables with the credentials sent over email (for AWS).
+ 
 ## Running the app
 
 ```bash
@@ -43,6 +46,12 @@ $ npm run start:dev
 
 # production mode
 $ npm run start:prod
+```
+
+# With Docker 
+```bash
+# development
+$ docker-compose up
 ```
 
 ## Test
