@@ -9,6 +9,9 @@ import {
   HttpException,
   UseInterceptors,
   UploadedFile,
+  ParseFilePipe,
+  MaxFileSizeValidator,
+  FileTypeValidator,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -26,7 +29,6 @@ export class ProductsController {
   @UseInterceptors(
     FileInterceptor('image', {
       storage: diskStorage({
-        destination: './uploads', // Carpeta donde se guardarán las imágenes
         filename: (req, file, cb) => {
           const randomName = Array(32)
             .fill(null)
@@ -37,8 +39,16 @@ export class ProductsController {
       }),
     }),
   )
-  create(@Body() createProductDto: CreateProductDto, @UploadedFile() file) {
-    return this.productsService.create(createProductDto);
+  async create(
+    @Body() createProductDto: CreateProductDto,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [new FileTypeValidator({ fileType: 'image/jpeg' })],
+      }),
+    )
+    file: Express.Multer.File,
+  ) {
+    return await this.productsService.create(createProductDto, file);
   }
 
   @Get()

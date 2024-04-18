@@ -6,6 +6,7 @@ import { OrdersModule } from './orders/orders.module';
 import { ProductsModule } from './products/products.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { ConfigModule } from '@nestjs/config';
 @Module({
   imports: [
     MongooseModule.forRoot('mongodb://localhost/kenility'),
@@ -13,6 +14,7 @@ import { UsersModule } from './users/users.module';
     ProductsModule,
     AuthModule,
     UsersModule,
+    ConfigModule.forRoot({ isGlobal: true }),
   ],
   controllers: [AppController],
   providers: [AppService],
