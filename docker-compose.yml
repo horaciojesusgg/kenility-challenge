@@ -1,0 +1,15 @@
+services:
+  nodejs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '3001:3001'  # Expose Node.js application on port 3000
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+  db:
+      image: mongo:latest
+      ports:
+        - 27017:27017
+

@@ -9,7 +9,7 @@ import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost/kenility'),
+    MongooseModule.forRoot('mongodb://db:27017/kenility'),
     OrdersModule,
     ProductsModule,
     AuthModule,
