@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsString, Matches } from 'class-validator';
+import { IsNotEmpty, IsString, Matches } from 'class-validator';
 
 export class CreateProductDto {
   @IsString()
@@ -15,6 +15,9 @@ export class CreateProductDto {
   })
   SKU: string;
 
-  @IsNumber()
-  price: number;
+  @IsString()
+  @Matches(/^[Z0-9-.]+$/, {
+    message: 'Only numbers allowed',
+  })
+  price: string;
 }
