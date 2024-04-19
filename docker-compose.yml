@@ -1,15 +1,36 @@
 services:
-  nodejs:
+ mongodb:
+      container_name: mongo-database
+      image: mongo:6-jammy
+      restart: always
+      environment:
+        MONGO_INITDB_DATABASE: local
+      volumes:    
+        - ~/docker/volumes/mongodb:/data/db
+        - ./data:/data/db
+        - ./init-mongo-db-with-collections.js:/docker-entrypoint-initdb.d/init-mongo-db-with-collections.js:ro
+      ports:
+        - 27017:27017
+      networks:
+        - server-network
+ 
+ nodejs:
+    container_name: server
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - '3001:3001'  # Expose Node.js application on port 3000
+      - '3000:3000'
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
-  db:
-      image: mongo:latest
-      ports:
-        - 27017:27017
+    depends_on:
+      - mongodb
+    networks:
+      - server-network
 
+      
+volumes:
+  mongodb: {}
+networks:
+  server-network:
