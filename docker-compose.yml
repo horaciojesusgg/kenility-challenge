@@ -1,36 +1,33 @@
+version: '3.3'
 services:
- mongodb:
-      container_name: mongo-database
-      image: mongo:6-jammy
-      restart: always
-      environment:
-        MONGO_INITDB_DATABASE: local
-      volumes:    
-        - ~/docker/volumes/mongodb:/data/db
-        - ./data:/data/db
-        - ./init-mongo-db-with-collections.js:/docker-entrypoint-initdb.d/init-mongo-db-with-collections.js:ro
-      ports:
-        - 27017:27017
-      networks:
-        - server-network
- 
- nodejs:
-    container_name: server
+  dev:
+    container_name: nestjs_api_dev
+    image: nestjs-api-dev:1.0.0
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ./Dockerfile
+    command: npm run start:dev
     ports:
-      - '3000:3000'
+      - 3000:3000
+      - 3001:9229
+    networks:
+      - nesjs-network
+    depends_on:
+      - mongodb
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
-    depends_on:
-      - mongodb
+    restart: unless-stopped
+  mongodb:
+    image : mongo:latest
+    container_name: mongodb
+    volumes:
+      - ./database:/data/db
+    ports:
+      - 27017:27017
     networks:
-      - server-network
-
-      
-volumes:
-  mongodb: {}
+      - nesjs-network
+    restart: always
 networks:
-  server-network:
+    nesjs-network:
+      driver: bridge
