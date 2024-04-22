@@ -26,6 +26,11 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+## Seed User for sign in
+```bash
+user: test
+password: kenility
+```
 ## Installation
 
 ```bash
